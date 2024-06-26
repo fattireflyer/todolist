@@ -11,7 +11,8 @@ class Todo extends Component{
         this.handleOnEdit = this.handleOnEdit.bind(this);
         this.handleOnTrash = this.handleOnTrash.bind(this);
         this.handleOnClick = this.handleOnClick.bind(this);
-        this.handleSubmit = this.handleOnSubmit.bind(this);
+        this.handleOnSubmit = this.handleOnSubmit.bind(this);
+        this.handleOnChange = this.handleOnChange.bind(this);
     }
 
     handleOnEdit(){
@@ -24,13 +25,20 @@ class Todo extends Component{
 
     handleOnSubmit(evt){
         evt.preventDefault()
-        this.props.updateTodo(this.state.value, this.props.id)
+        this.props.updateTodo(this.state.value, this.props.id) 
+        this.setState({isEditing: false})
+    }
+    handleOnChange(evt){
+        this.setState({value: evt.target.value})
     }
 
     renderEditInput(){
         return(
             <form onSubmit={this.handleOnSubmit}>
-                <input></input>
+                <input 
+                value={this.state.value}
+                onChange={this.handleOnChange}
+                />
                 <button>save</button>
             </form>
         )
@@ -47,10 +55,10 @@ class Todo extends Component{
             <div>
                 {this.state.isEditing    ?
                   this.renderEditInput() : 
-                  <p
-                  style={{ textDecoration: this.state.checked ? 'line-through' : 'none' }} 
+                  <p style={{ textDecoration: this.state.checked ? 'line-through' : 'none' }} 
                   onClick={this.handleOnClick}
-                  > {this.props.description} </p>}
+                  > {this.props.description} </p>
+                }
                 <button onClick={this.handleOnEdit}> edit </button>
                 <button onClick={this.handleOnTrash}> trash </button>
             </div>

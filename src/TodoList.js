@@ -38,7 +38,7 @@ class TodoList extends Component{
     }
     addTodo(newTodoDesc){
         let newTodo = {description: newTodoDesc, id: uuid()};
-        this.setState(curState => ({todos: [...this.state.todos, newTodo]}))
+        this.setState({todos: [...this.state.todos, newTodo]})
     }
     deleteTodo(id){
         let newTodoList = this.state.todos.filter(todo => todo.id != id);
